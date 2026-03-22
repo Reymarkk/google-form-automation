@@ -1,6 +1,4 @@
-I'll provide a clean, professional README that is well-structured, uses proper markdown, and includes a table of contents, badges, and clear steps. This version is visually appealing on GitHub and easy to follow.
 
-```markdown
 # 🚀 Google Form Automation – Bulk Submission with File Upload
 
 [![Python](https://img.shields.io/badge/python-3.7%2B-blue)](https://python.org)
