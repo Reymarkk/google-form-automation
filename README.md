@@ -255,6 +255,3 @@ Built with 🐍 Python, [Selenium](https://selenium.dev), and [pyautogui](https:
 ---
 
 **Happy automating!** 🚀
-```
-
-This README is clean, uses headings, code blocks, tables, and a table of contents. It's professional and easy to read on GitHub.
