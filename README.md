@@ -251,7 +251,3 @@ This project is open‑source under the **MIT License**. See the [LICENSE](LICEN
 ## 🙌 Credits
 
 Built with 🐍 Python, [Selenium](https://selenium.dev), and [pyautogui](https://pyautogui.readthedocs.io/).  
-
----
-
-**Happy automating!** 🚀
