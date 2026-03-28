@@ -6,7 +6,6 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.chrome.options import Options
-from selenium.common.exceptions import TimeoutException
 
 class GoogleFormAutomation:
     def __init__(self, debugger_address="localhost:9222"):
@@ -93,7 +92,7 @@ class GoogleFormAutomation:
             pass
         self.driver.switch_to.default_content()
 
-    def upload_single_button(self, button, button_num, retry_count=0):
+    def upload_single_button(self, button, button_num):
         """Upload file for a single Add file button."""
         print(f"\n  Processing button {button_num}...")
         # Ensure no leftover iframe
@@ -118,39 +117,6 @@ class GoogleFormAutomation:
             self.driver.switch_to.frame(picker_iframe)
             time.sleep(1)
 
-            # Check if the picker is blank (no upload controls)
-            try:
-                # Try to find either file input or browse button within a short timeout
-                WebDriverWait(self.driver, 3).until(
-                    EC.presence_of_element_located((By.CSS_SELECTOR, 'input[type="file"], div[contains(text(), "Browse")]'))
-                )
-            except TimeoutException:
-                # Blank dialog detected
-                print("  Blank picker detected (no upload controls) – closing and refreshing")
-                self.driver.switch_to.default_content()
-                self.close_picker_iframe()
-                # Refresh the page to reset
-                self.driver.refresh()
-                time.sleep(2)
-                # Re-fill text fields (since refresh cleared them)
-                self.fill_text_fields()
-                # Re-find the button (it's now stale) and retry upload for this button
-                # Re-fetch all add file buttons
-                add_buttons = self.driver.find_elements(By.XPATH, "//div[contains(text(), 'Add file')]")
-                if not add_buttons:
-                    add_buttons = self.driver.find_elements(By.XPATH, "//span[contains(text(), 'Add file')]")
-                if len(add_buttons) >= button_num:
-                    new_button = add_buttons[button_num-1]
-                    if retry_count < 2:  # prevent infinite loops
-                        return self.upload_single_button(new_button, button_num, retry_count+1)
-                    else:
-                        print(f"  Max retries reached, giving up on button {button_num}")
-                        return False
-                else:
-                    print(f"  Could not re-find button {button_num} after refresh")
-                    return False
-
-            # Normal upload flow (picker has controls)
             # Look for file input or browse button
             try:
                 file_input = self.driver.find_element(By.CSS_SELECTOR, 'input[type="file"]')
