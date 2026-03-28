@@ -236,7 +236,7 @@ Modify the `self.file_path` line as described in step 7.
 
 | File | Description |
 |------|-------------|
-| `main.py` | The automation scripts |
+| `main.py` | The automation script |
 | `requirements.txt` | Python dependencies |
 | `README.md` | This documentation |
 
